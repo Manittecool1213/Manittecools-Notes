@@ -3,7 +3,6 @@ title: Deep Learning
 draft: false
 tags:
 ---
-
 # ToDo
 - [ ] Revise regression
 # Notes

@@ -3,7 +3,6 @@ title: Example Title
 draft: false
 tags: []
 ---
- 
 # Read up on
 - SVMs
 - Non-linearities

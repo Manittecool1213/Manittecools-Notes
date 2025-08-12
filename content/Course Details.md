@@ -1,11 +1,9 @@
 ---
 title: Course Details
 draft: false
-tags:
-  - example-tag
+tags: []
 ---
- 
-- Structure changed over sems.
+ - Structure changed over sems.
 - Generative elements moved to separate course - GenAI.
 - Focus on discriminative models.
 - Why do things this way? Why not directly teach about LLMs?
