@@ -1,7 +1,7 @@
 ---
-title: Example Title
+title: Neural Networks
 draft: false
-tags: []
+tags:
 ---
 # Read up on
 - SVMs
@@ -38,3 +38,5 @@ tags: []
 	- McDonald's drive-thru with IBM.
 	- Air Canada's chatbot.
 	- Microsoft's Tay AI.
+--- 
+[[Logical Computations with Neurons]]
