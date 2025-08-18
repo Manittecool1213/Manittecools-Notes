@@ -8,8 +8,8 @@ tags:
 # Notes
 [[Course Details]]
 [[Miscellaneous]]
-[[Neural Networks]]
-
+[[Introduction to Neural Networks]]
+[[Logical Computations with Neurons]]
 
 
 

@@ -39,4 +39,3 @@ tags:
 	- Air Canada's chatbot.
 	- Microsoft's Tay AI.
 --- 
-[[Logical Computations with Neurons]]
