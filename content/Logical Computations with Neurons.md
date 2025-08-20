@@ -10,6 +10,7 @@ Date: Wednesday, 13th August 2025
 - Why can't learning take place with neurons? Why is the activation function or the bias term required?
 	- The concept of 'learning' information / classifications simply wasn't discovered while neurons were relevant.
 	- It was only with the introduction of the perceptron that the concept of 'learning' and the Hebbian learning strategy were introduced.
+- How is batched gradient descent representative of the error of the entire dataset? Why not just update weights after each mini batch?
 --- 
 # McCulloch-Pitts Neuron
 Can perform various operations such as logical and / logical or using weights and thresholds.
@@ -40,11 +41,12 @@ Can perform various operations such as logical and / logical or using weights an
 		- X: input
 		- b: bias
 	- The bias term can be absorbed into the weight as W_0, with X_0 = 1, reducing the expression to fn(W^T * X).
+- (aside) How to get a *single* neuron to perform non-linear classification? Replace X here with some non-linear f(X). Issue: doesn't backpropagate well.
 ### Hebbian Learning Algorithm
-- At this time, backpropagation didn't exist. Hebbian learning was used instead. This is also why thresholding functions were used instead of the constrained functions we now use with backpropagation.
+- At this time, backpropagation didn't exist. Hebbian learning was used instead. This is also why thresholding functions were used instead of the constrained (differentiability, etc.) functions we now use with backpropagation.
 - General idea of Hebbian learning:
-	- Use the difference between the expected and given outputs.
-	- The amount of change required depends on the input which caused the change.
+	- Use the difference between the expected and reported outputs.
+	- The weight of a neuron which was contributed more to an incorrect output will be changed more.
 - Hebbian learning is not obsolete; some models today still use Hebbian learning.
 - Limitations: 
 	- Training progresses one input after another. This means that by the end of the training cycle, the weights may have become 'stale' relative to the initial inputs.
@@ -82,5 +84,8 @@ Can perform various operations such as logical and / logical or using weights an
 - First approach: use Hebbian learning to update weights per training example. Issue: completely serial; can't parallelise.
 - Second approach: use a learning method which uses all training examples to make each update. Issue: might have too *much* data, such that each update takes a very long time.
 - Solution: use batches (subsets of the entire training set) to compute loss. 
-- With batching, you loss plot might not be as smooth as compared to the plot without any batching; there might be sharp edges owing to the fact that batching is stochastic. Inspite of this 'jaggedy' progression, the model will still converge with batching.k
----
+- With batching, you loss plot might not be as smooth as compared to the plot without any batching; there might be sharp edges owing to the fact that batching is stochastic. Inspite of this 'jaggedy' progression, the model will still converge with batching.
+- Analytic solution - only applicable for single perceptron - proof cannot be extended to MLPs.
+- Computation of batches - uses different sampling strategies - depending on parameters.
+### Batched Gradient Descent
+- Loss computed for every single batch, but update only made for entire epoch.

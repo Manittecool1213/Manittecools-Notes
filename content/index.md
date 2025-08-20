@@ -8,4 +8,5 @@ title: Manittecool's Notes
 [[Principles of Programming Languages]]
 # Electives
 [[Deep Learning]]
+[[Agentic Generative AI Systems]]
 
