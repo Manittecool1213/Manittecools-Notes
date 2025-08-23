@@ -13,5 +13,5 @@ tags:
 [[Introduction to Neural Networks]]
 [[Logical Computations with Neurons]]
 [[Classifiers]]
-
+[[Lab Notes]]
 
