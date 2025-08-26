@@ -3,6 +3,13 @@ title: Agentic Generative AI Systems
 draft: false
 tags:
 ---
+# Questions
+- What is the mechanism for context storage in agents?
+- How are the actions of an agent monitored and authority restricted?
+- How really do agents 'adapt'? It's not as though they can structurally change. How do you prevent them from hallucinating and deviating from their assigned task? What can you safely do with an agentic system that you *couldn't* with deterministic code?
+- What is the mechanism for the usage of LLMs in agents? Is it simply structured prompt passing?
+- Is there a context sharing mechanism across different LLMs in an agentic system? My first query could involve node A, while a follow up could involve node B. How would node B get the context that node A has?
+---
 # Introduction
 --- 
 ### General / Econ Material
@@ -33,3 +40,15 @@ tags:
 	- In a chat with an LLM, you keep reprompting the LLM with the entire chat history. 
 	- After the chat history reaches a certain length, it needs to be truncated. What remains is your context window.
 ---
+# Agents
+- What are they? AI systems that an perceive, reason, act and adapt in a loop.
+- No architectural changes at all - we're harnessing the power off LLMs to perform a certain task.
+- Task modelled as a graph, with each node being an agent. Each of these agents communicate with each other.
+	- Communication flow might be conditional. Some tool nodes / agents might only be invoked if a certain condition is met. For example, the SQL agent would only be invoked if the query required searching a database.
+- (aside) context window problem - NP hard.
+- Model context protocol - protocol to standardise communication and interaction between agents.
+- Principle: Each node will perform a human *task*. The entire agentic system will perform a human *role*.
+- Scalability in services:
+	- Goal: to avoid global variables, i.e., make most containers stateless.
+	- Why? If they're stateless, scaling horizontally is easy.
+	- Some containers will still need to be stateful.

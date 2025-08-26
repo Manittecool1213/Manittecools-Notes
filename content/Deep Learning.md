@@ -8,10 +8,10 @@ tags:
 - [ ] Revise Gradient Descent
 - [ ] Review vid on understanding conditional probability
 # Notes
+[[Lab Notes]]
 [[Course Details]]
 [[Miscellaneous]]
 [[Introduction to Neural Networks]]
 [[Logical Computations with Neurons]]
 [[Classifiers]]
-[[Lab Notes]]
-
+[[Backpropagation]]
