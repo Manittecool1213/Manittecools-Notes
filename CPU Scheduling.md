@@ -1,0 +1,9 @@
+- Round robin - minimises response time, but has poor turnaround time.
+- In general, balance needs to exist between response and turnaround times.
+- Multi Level Feedback Queue:
+	- Different queues for each priority level.
+	- Each priority level gets its own round robin.
+	- Priority decays with age. This ensures that short I/O bound processes get priority over long CPU-bound processes.
+	- Avoiding starvation - priority boost - periodically reset all processes to the highest priority.
+	- Avoiding gaming the system - don't reset timer when CPU given up. This way even I/O tasks eventually get low priority.
+- Expect for midsems: determine scheduler hyperparameters given a workload.

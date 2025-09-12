@@ -16,3 +16,4 @@ tags:
 [[Classifiers]]
 [[Backpropagation]]
 [[Vanishing and Exploding Gradients]]
+[[Moving to DL]]
