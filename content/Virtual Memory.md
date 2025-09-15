@@ -74,7 +74,7 @@ tags:
 			- First 10 bits indicate which table chunk to go to (0 - 1023).
 			- Next 10 bits indicate where within that table chunk to go to (0 - 1023).
 	- Quantifying:
-		- How many directory entries required? Page table size / page size = 2 ^ 22 bytes (4 KB) / 2 ^ 12 bytes = 1024 entries.
+		- How many directory entries required? Page table size / page size = 2 ^ 22 bytes (4 MB) / 2 ^ 12 bytes = 1024 entries.
 		- The entire page directory can then be stored in 1 page.
 		- Each page table chunk needs 1 page.
 		- Total page table: 1 + 1024 = 1025 pages.

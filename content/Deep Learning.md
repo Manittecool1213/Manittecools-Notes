@@ -17,3 +17,4 @@ tags:
 [[Backpropagation]]
 [[Vanishing and Exploding Gradients]]
 [[Moving to DL]]
+[[Transfer Learning]]

@@ -9,4 +9,5 @@ title: Manittecool's Notes
 # Electives
 [[Deep Learning]]
 [[Agentic Generative AI Systems]]
+# Eval Schedule
 
