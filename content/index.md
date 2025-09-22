@@ -2,12 +2,11 @@
 title: Manittecool's Notes
 ---
 # CDCs
-[[Operating Systems]]
-[[Computer Architecture]]
-[[Theory of Computation]]
-[[Principles of Programming Languages]]
+- [[Operating Systems]]
+- [[Computer Architecture]]
+- [[Theory of Computation]]
+- [[Principles of Programming Languages]]
 # Electives
-[[Deep Learning]]
-[[Agentic Generative AI Systems]]
-# Eval Schedule
+- [[Deep Learning]]
+- [[Agentic Generative AI Systems]]
 
