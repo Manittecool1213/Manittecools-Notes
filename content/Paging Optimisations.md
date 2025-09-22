@@ -1,0 +1,40 @@
+---
+title: Paging Optimisations
+draft: false
+tags:
+---
+-  Solution 1: Changing page size / variable page size with hybrid of big and small pages.
+	- Changing page size drastically reduces size of page table required, but has the drawback of greatly increased internal fragmentation.
+- Solution 2: Paging + segmentation:
+	- What is being done: table itself is divided into segments. Only entries corresponding to actual valid entries are stored, and these entries are stored non-contiguously. Each segmented portion of the page table gets a base and bound.
+	- Benefit: less contiguous space required to store the table itself.
+	- Harm: what happens when more space starts being used, and the page table needs to be expanded - lots of computation required to expand table.
+- ***Solution 3: Page table directory (non-trivial):***
+	- (pre-req, for lack of better word) PFNs (Physical Frame Numbers): The entire point of the page table is to translate virtual addresses to physical addresses. The PFN is the this true physical address. When a program wants to access the virtualised page 1, it will lookup the page table entry for virtualised page 1, and the PFN there will indicate which true address to use.
+	- What is being done:
+		- Create a directory which stores information about each page (of the page table).
+		- A separate directory is created FOR EACH PROCESS'S PAGE TABLE. We are currently optimising the space required to store a page table for each process.
+		- What is this information: a valid bit which indicates whether ANY offset within the page (once again page of page table) stores any valid entry.
+		- If a valid entry IS present, the memory is 'blocked'. If it ISN'T, the memory currently allocated can be used by other processes to optimise memory usage. When any offset of a previously invalid chunk starts being used, new memory will be allocated for the entire chunk. The address of this chunk will be updated in the directory.
+		- Previously, the 'order' of the page table was implicitly stored because the table was contiguous. Now, because the page table can be stored in smaller chunks, this implicit ordering is lost. This order is now recreated using the directory. Even if a chunk of the table is unused, the directory would store a blank entry (valid bit = 0) in order to retain the page table order.
+		- How 20 bit reference now works:
+			- First 10 bits indicate which table chunk to go to (0 - 1023).
+			- Next 10 bits indicate where within that table chunk to go to (0 - 1023).
+	- Quantifying:
+		- How many directory entries required? Page table size / page size = 2 ^ 22 bytes (4 MB) / 2 ^ 12 bytes = 1024 entries.
+		- The entire page directory can then be stored in 1 page.
+		- Each page table chunk needs 1 page.
+		- Total page table: 1 + 1024 = 1025 pages.
+---
+- TODO: 48 bit CPU, 4 KB pages, 8 byte page table entries. How many levels would be needed? Answer: 4.
+- The size of a page DIRECTORY entry is a design choice; it WILL have some extra information, so it's size can't be computed without knowledge of this information.
+- Iterating through the entire page table - called page table walk. Full walks are very expensive.
+- Why is every lookup O(1):
+	- The virtual address itself serves to supply every single offset value. How to visualise this: binary system. 101 means - offset = 1 for MSB, offset = 0 for next, offset = 1 for next. This doesn't happen on bit level in this context, but same general idea.
+	- The page table entry stores the base of every next page.
+	- With both values, simple addition required, O(1) access undertaken.
+---
+### Inverted Page Table
+- Create one single page table for the entire RAM, and not a page table for every process.
+- This table would also contain a process ID to determine which process gets to access which portion of RAM.
+- Cons: demand paging not possible.
