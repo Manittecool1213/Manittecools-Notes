@@ -3,7 +3,19 @@ title: Virtual Memory
 draft: false
 tags:
 ---
+# Notes
+- [[Introduction and Basics]]
+- [[Paging Basics]]
+- [[Paging Optimisations]]
+- [[Translation Lookaside Buffer]]
+- [[Demand Paging]] 
+---
+# Cache Eviction Policies
+- LRU - temporal locality.
+- Prefetching - spacial locality - swapping *in* memory locations close to one which was requested, to reduce access time in the even that it *does* get used. The philosophy of this paradigm is that the likelihood of this access pattern is high.
+---
 # Questions
+### General
 - Virtualisation is an expensive endeavour. What then is the purpose of virtualising memory? If every process can't actually have all the memory, why tell the processes that memory is completely independent?
 - Does virtualisation imply that even non-contiguous addresses can be referred to in a contiguous manner?
 	- Yes. Without this, there might be a situation where non-contiguous chunks of memory were available, but would not be allocated because of their non-contiguous nature. 
@@ -19,14 +31,4 @@ tags:
 ### FS
 - What is the SSD equivalent of the 'swipe' access pattern, if one exists at all?
 	- Ans: Need to lookup, but sequential access in disks IS faster than random access.
----
-# Notes
-- [[Introduction and Basics]]
-- [[Paging Basics]]
-- [[Paging Optimisations]]
-- [[Translation Lookaside Buffer]]
-- [[Demand Paging]] 
-# Cache Eviction Policies
-- LRU - temporal locality.
-- Prefetching - spacial locality - swapping *in* memory locations close to one which was requested, to reduce access time in the even that it *does* get used. The philosophy of this paradigm is that the likelihood of this access pattern is high.
 
