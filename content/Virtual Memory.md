@@ -15,6 +15,10 @@ tags:
 - Are there any benefits to having page size ≠ frame size.
 - Why are variable page sizes not used anymore?
 	- Hint: memory manager becomes complex.
+- What are the cons of a virtually addressed cache.
+### FS
+- What is the SSD equivalent of the 'swipe' access pattern, if one exists at all?
+	- Ans: Need to lookup, but sequential access in disks IS faster than random access.
 ---
 # Introduction / Basics
 - CPU registers also have access to only VIRTUAL addresses.
@@ -55,6 +59,7 @@ tags:
 - The page table needs to have metadata beyond the page-frame mapping to check validity, read/write permission, etc.
 - Because the page table needs to maintain a mapping from virtual address (same range for each process, but independent, i.e. each process gets 0 to some value) to a physical address (common and dependent), EACH process's page table takes 4 MB (given 32 bit operating system, 4 kb page size).
 - Because page table itself is chunked - need hierarchical paging.
+---
 ### Optimisations
 - Solution 1: Changing page size / variable page size with hybrid of big and small pages.
 	- Changing page size drastically reduces size of page table required, but has the drawback of greatly increased internal fragmentation.
@@ -78,4 +83,45 @@ tags:
 		- The entire page directory can then be stored in 1 page.
 		- Each page table chunk needs 1 page.
 		- Total page table: 1 + 1024 = 1025 pages.
-	- TODO: 48 bit CPU, 4 KB pages, 8 byte page table entries. How many levels would be needed?
+---
+- TODO: 48 bit CPU, 4 KB pages, 8 byte page table entries. How many levels would be needed? Answer: 4.
+- The size of a page DIRECTORY entry is a design choice; it WILL have some extra information, so it's size can't be computed without knowledge of this information.
+- Iterating through the entire page table - called page table walk. Full walks are very expensive.
+- Why is every lookup O(1):
+	- The virtual address itself serves to supply every single offset value. How to visualise this: binary system. 101 means - offset = 1 for MSB, offset = 0 for next, offset = 1 for next. This doesn't happen on bit level in this context, but same general idea.
+	- The page table entry stores the base of every next page.
+	- With both values, simple addition required, O(1) access undertaken.
+---
+### Translation Lookaside Buffer
+- TLB cache: stores virtual address - physical address map for faster access. This is a physical cache connected to the processor.
+- On cache hit, the the full page table walk is no longer required, and the required physical address is instead supplied by the TLB. 
+- This can then be used in conjunction with the L1/L2 caches, which would store a {physical address : data} mapping. Critically, these two are INDEPENDENT. What is stored in the cache is NOT dependent on what has been cached in the TLB. 
+- Own approach: 
+	- The TLB stores either a Virtual Address (VA) to Physical Address (PA) mapping OR a VA to data mapping if the element is cached. In this case, the caches become dependent. 
+	- Cache is now larger because it stores data only, and not addresses.
+	- Pros:
+		- Larger cache.
+		- Faster access of cache because one O(1) access is reduced from the pipeline.
+	- Cons:
+		- Dependence of caches.
+		- (STILL not satisfied as to why this is so bad).
+---
+- OS as part of address space for every process:
+	- Options:
+		- OS code part of address space for every process.
+		- OS is separate from this address space, stored somewhere else, but accessed by every process. This would effectively mean that the OS is an independent process.
+	- Why the first is better: Faster syscall / any OS code processing, because one less context switch is required. If the OS is one common process used by every other process, there would need to be a context switch to this process before the actual kernel mode purpose could be serviced.
+	- Inspite of this, the process doesn't gain access to the kernel code. Although the process's page table contains entries corresponding to kernel code, there would be some flag (likely control bit) which would indicate that the data stored there is OS code. If a process attempted to access this code, there would be a seg fault.
+---
+### Inverted Page Table
+- Create one single page table for the entire RAM, and not a page table for every process.
+- This table would also contain a process ID to determine which process gets to access which portion of RAM.
+- Cons: demand paging not possible.
+--- 
+### Demand Paging
+- Prelim idea - Swap Space:
+	- I have 2 GB of RAM left, but I want to allocate 4 GB (I won't need 4 GB simultaneously as in an LLM).
+	- I allocate the 2 GB, and keep the other 2 GB in the swap space of the disk - a contiguous stretch of the disk which can be accessed in one swipe.
+	- The RAM would treat the swap space as virtual memory.
+	- The swap space could also be divided into blocks, each assigned to different processes. All the swap space does't need to be allocated to the same process.
+	- The page table would need another bit - the present bit - to indicate whether or not the concerned page is present in the swap space. If the page is NOT present, the table would contain a PHYSICAL address, because the disk is going to be accessed.

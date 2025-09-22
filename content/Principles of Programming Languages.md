@@ -64,3 +64,8 @@ tags:
 	- linking time
 	- loading time
 	- runtime
+---
+- Extensions v/s Generics:
+	- In generics, the functionality remains the same while the type on which the functionality is being performed changes. Generics are a generalisation.
+	- In extensions, the type on which the operations are being performed remains the same, while the functionality itself changes. Extensions are a specialisation.
+- (aside) Lookup objective C.
