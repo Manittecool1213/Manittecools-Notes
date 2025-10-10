@@ -69,6 +69,33 @@ tags:
 ![[IMG_7833.heic]]
 - Read up on: 2Q (2 tier cache?)
 - Read up on: real time operating systems
+- More context on fragmentation:
+	- Fragmentation within a node of a free list - internal.
+	- Across nodes - external.
+	- NEED MORE CLARITY ON THIS.
+- Memory allocation strategies:
+	- Best, worst, first fit.
+	- Best: closest empty space available to fit required data.
+	- Worst: biggest space available.
+		- Advantage: remaining space after allocation can be used to fit something else.
+		- Disadvantage: taking away largest chunk which would otherwise have been useful for a larger element.
+	- First: self explanatory
+- RTOS memory design options:
+	- Multiple queues: one for latency sensitive elements, another for non-sensitive ones, with some sort of hint to the OS (this does not need to be per page; can instead be per process).
+	- Larger pages to make page table walks faster.
+	- Increase size of working set.
+- Working set: for each process, a fixed number of pages NEED to be in RAM. 
+- Computing access time in case of page fault:
+	- 1 TLB time for search
+	- 1 memory access time to check full PT (assuming TLB MISS; there IS a possibility of TLB hit even for block addresses, in which case you wouldn't need the memory access time)
+	- 1 disk access time to actually get the page from disk
+	- 1 memory access time to update PTE (assuming no parallel updation)
+	- 1 TLB time to update TLB (assuming no parallel updation)
+	- In case of parallel updation, these two above can be done while disk access is taking place. So, as long as disk access takes longer, even at same order of magnitude these need not contribute to total access time.
+	- 1 memory time to now actually read correct location
+- Revise: MLFQ
+- Only problem with zombie processes: PID still present, you run out of PIDs.
+	- Read up more on zombies; this is still unclear.
 ---
 # Questions
 ### General
