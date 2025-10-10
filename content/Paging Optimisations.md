@@ -4,7 +4,9 @@ draft: false
 tags:
 ---
 -  Solution 1: Changing page size / variable page size with hybrid of big and small pages.
-	- Changing page size drastically reduces size of page table required, but has the drawback of greatly increased internal fragmentation.
+	- Drawbacks:
+		- Having larger pages results in greatly increased internal fragmentation.
+		- Variable page sizes require a complex memory manager.
 - Solution 2: Paging + segmentation:
 	- What is being done: table itself is divided into segments. Only entries corresponding to actual valid entries are stored, and these entries are stored non-contiguously. Each segmented portion of the page table gets a base and bound.
 	- Benefit: less contiguous space required to store the table itself.
