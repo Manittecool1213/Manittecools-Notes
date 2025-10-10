@@ -12,7 +12,7 @@ tags:
 		- Too much switching: every time a memory address would need to be made, the program would need to go from user to kernel mode - too much switching, too much overhead.
 - Issues with physically contiguous allocation of code-heap-stack:
 	- Heap and stack might expand.
-	- You may never use a lot of the heap, leaving its memory forever empty a s a gap between code and stack. This could instead be used for something else.
+	- You may never use a lot of the heap, leaving its memory forever empty as a gap between code and stack. This could instead be used for something else.
 - Alternative to contiguity: segmentation.
 	- Instead of using just 2 pointers for base and bound, use 6 registers - acting as base and bound for each of the code, heap and stack segments.
 	- This is now outdated because of the drawbacks of segmentation, viz. needing non-contiguity within the same segment. Paging is now used instead.

@@ -66,7 +66,6 @@ tags:
 	- With a separate mapping of allocated space, a con is latency. You would need to access a separate page to determine which specific bytes have been allocated, and then work with them (think about how a free call would work to deallocate memory).
 ---
 # Design Problems Discussed
-![[IMG_7833.heic]]
 - Read up on: 2Q (2 tier cache?)
 - Read up on: real time operating systems
 - More context on fragmentation:
