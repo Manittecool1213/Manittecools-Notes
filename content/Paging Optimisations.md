@@ -12,7 +12,7 @@ tags:
 	- Benefit: less contiguous space required to store the table itself.
 	- Harm: what happens when more space starts being used, and the page table needs to be expanded - lots of computation required to expand table.
 - ***Solution 3: Page table directory (non-trivial):***
-	- (pre-req, for lack of better word) PFNs (Physical Frame Numbers): The entire point of the page table is to translate virtual addresses to physical addresses. The PFN is the this true physical address. When a program wants to access the virtualised page 1, it will lookup the page table entry for virtualised page 1, and the PFN there will indicate which true address to use.
+	- (pre-req, for lack of better word) PFNs (Physical Frame Numbers): The entire point of the page table is to translate virtual addresses to physical addresses. The PFN is this true physical address. When a program wants to access the virtualised page 1, it will lookup the page table entry for virtualised page 1, and the PFN there will indicate which true address to use.
 	- What is being done:
 		- Create a directory which stores information about each page (of the page table).
 		- A separate directory is created FOR EACH PROCESS'S PAGE TABLE. We are currently optimising the space required to store a page table for each process.

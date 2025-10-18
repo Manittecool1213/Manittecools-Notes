@@ -3,7 +3,7 @@ title: Threads and Concurrency
 draft: false
 tags:
 ---
-
+[[Locks]]
 # Questions
 - If semaphores are the elements used to create locks, how are semaphores themselves locked?
 ---
@@ -17,11 +17,13 @@ tags:
 - How can the same code be run by multiple threads? Code is read-only, and each thread gets its own independent program counter.
 - Each thread has a separate CPU context during execution.
 - No notion of parents and children in threads, but 'main' is typically the primary thread from which other threads are spawned.
+- Switching between threads DOES entail context switching, and also involves the OS. Context switching between threads is cheaper than between processes. WHY EXACTLY?
 ---
 # Concurrency v/s Parallelism
 - Concurrency: running multiple threads / processes at the same time, even on a single CPU core, by interleaving execution.
 - Parallelism: running multiple threads / processes in parallel over DIFFERENT CPU cores.
 - Concurrency is a software ILLUSION, parallelism is truly performing tasks simultaneously.
+- Is it possible to have a speedup with concurrency? Yes, if one portion of the application is blocking, allowing others to run.
 ---
 # POSIX Threads
 - Join in threads: the spawner thread will wait for its spawned threads to finish before it stops.
@@ -43,3 +45,11 @@ tags:
 	- Before critical segment - interrupt disabled.
 	- Critical segment performed.
 	- Interrupt re-enabled.
+---
+- Questions to read up on:
+	- Why are locks needed for the program code when using multiple threads?
+	- Should exec be allowed in a multi threaded setting?
+	- Can a thread ever go into a zombie state? If so, who takes care of such threads?
+- Parent managing child's memory:
+	- The parent needs some mechanism to keep a count of how many threads its children are running.
+	- As these threads complete execution, the parent needs to cleanup the memory corresponding to that thread.
